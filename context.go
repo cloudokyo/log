@@ -12,6 +12,9 @@ const (
 	// The key attachs the logger data to the context
 	ContextKey = Key("logger")
 
+	// The auth account key, refer to pkg/http/filter/auth.ContextKey
+	AccountKey = "account"
+
 	// The request id key attaches to the context
 	RequestKey = "id"
 

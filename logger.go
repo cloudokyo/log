@@ -12,7 +12,6 @@ import (
 	"github.com/cloudokyo/env"
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog"
-	"github.com/rs/zerolog/pkgerrors"
 )
 
 type (
@@ -112,7 +111,7 @@ func init() {
 	}
 
 	// Override zerolog configs
-	zerolog.ErrorStackMarshaler = pkgerrors.MarshalStack
+	zerolog.ErrorStackMarshaler = MarshalStack
 	zerolog.TimeFieldFormat = "2006-01-02 15:04:05.999"
 	zerolog.MessageFieldName = MSG
 
@@ -321,7 +320,7 @@ func Log(event *Event, args ...any) *Event {
 			}
 
 			// Append error to log
-			err := errors.Wrap(value, "")
+			err := errors.WithStack(value)
 			event.Err(err)
 			event.AnErr(zerolog.ErrorFieldName, err)
 		case context.Context:
